@@ -52,9 +52,9 @@
       \\[0.03cm]{\small\color{Cmuted}\insertframesubtitle}%
     \fi%
   \end{beamercolorbox}%
-  \vspace{0.06cm}%
+  \vspace{0.03cm}%
   \noindent\makebox[\paperwidth][l]{\hspace*{0.8cm}{\color{Cblue!20}\rule{\dimexpr\paperwidth-1.2cm\relax}{0.5pt}}}%
-  \vspace{0.08cm}%
+  \vspace{0.03cm}%
 }
 
 %% 页脚：右下角页码
@@ -156,10 +156,9 @@
 \frametitle{项目定位}
 \framesubtitle{与普通 RAG demo 的本质区别}
 
-\begin{columns}[T]
-\column{0.64\textwidth}
-{\small
-\begin{tabularx}{\linewidth}{lXXX}
+\begin{tcolorbox}[enhanced, boxrule=0pt, colback=white, colframe=white, left=0pt, right=0pt, top=0pt, bottom=0pt]
+{\footnotesize
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.12\textwidth} >{\raggedright\arraybackslash}p{0.28\textwidth} >{\raggedright\arraybackslash}p{0.28\textwidth} >{\raggedright\arraybackslash}X}
 \toprule
 & {\color{Cmuted}普通 RAG demo} & {\color{Cmuted}传统规则客服} & {\bfseries\color{Cblue}本系统} \\
 \midrule
@@ -171,17 +170,20 @@
 迭代 & 无 & 手工维护 & \hi{SupportCase 飞轮} \\
 \bottomrule
 \end{tabularx}}
+\end{tcolorbox}
 
-\vspace{0.2cm}
+\vspace{0.12cm}
+\begin{columns}[T]
+\column{0.58\textwidth}
 \begin{tcolorbox}[tcblue]
-\small 系统输出不是一段回答文本，而是一条可复盘的 \mono{SupportCase}：\\
+\footnotesize 系统输出不是一段回答文本，而是一条可复盘的 \mono{SupportCase}：\\
 意图、证据、引用、置信度、验证结果、失败原因和最终动作都会被记录下来。
 \end{tcolorbox}
 
-\column{0.33\textwidth}
+\column{0.38\textwidth}
 \begin{tcolorbox}[tcgray, title={\color{Ctextdark}三条设计原则}]
-\small
-\begin{itemize}\setlength\itemsep{0.3em}
+\footnotesize
+\begin{itemize}\setlength\itemsep{0.18em}
   \item \textbf{LLM} propose → 工具 verify
   \item 失败不浪费 → 飞轮积累
   \item 可测才可信 → 每步有数字
@@ -238,14 +240,13 @@
 
 \begin{columns}[T]
 \column{0.50\textwidth}
-\vspace{0.1cm}
 \begin{tikzpicture}[
   node distance=0.18cm,
   b/.style={draw=Cblue!25, fill=Cgraylt, rounded corners=3pt,
             font=\fontsize{7}{8.5}\selectfont, minimum height=0.44cm,
             minimum width=4.6cm, align=center, text=Ctextmain},
   nb/.style={b, draw=Cgreen!40, fill=Cgreelt,
-             text=Cgreen!80!black, font=\fontsize{7}{8.5}\selectfont\bfseries},
+             text=Cgreen!80!black, font=\fontsize{6.4}{7.4}\selectfont\bfseries, minimum width=2.18cm},
   vb/.style={b, draw=orange!40, fill=Camberlt},
   mb/.style={b, draw=purple!25, fill=Cpurplelt},
   db/.style={b, draw=Cred!25,   fill=Cred!6},
@@ -254,9 +255,9 @@
 \node[b]  (q)   {用户问题};
 \node[b,  below=of q]   (ro)  {意图路由（6 类）};
 \node[b,  below=of ro]  (ret) {混合检索（dense + BM25 + RRF，父子文档）};
-\node[nb, below=0.08cm of ret, xshift=-1.15cm] (pf) {+ 价格约束过滤};
-\node[nb, below=0.08cm of ret, xshift=+1.15cm] (cd) {+ 复合查询分解};
-\node[b,  below=0.5cm of ret]  (gen) {生成（LLM / catalog 模板）};
+\node[nb, below=0.1cm of ret, xshift=-1.28cm] (pf) {+ 价格约束过滤};
+\node[nb, below=0.1cm of ret, xshift=+1.28cm] (cd) {+ 复合查询分解};
+\node[b,  below=0.62cm of ret]  (gen) {生成（LLM / catalog 模板）};
 \node[vb, below=of gen]  (ver) {三层验证（grounding / 引用 / 一致性）};
 \node[db, below=of ver]  (dec) {置信决策（ok / caution / handoff）};
 \node[mb, below=of dec]  (sc)  {SupportCase 落库};
@@ -268,15 +269,15 @@
 
 \column{0.46\textwidth}
 \begin{tcolorbox}[tcgray, title={\color{Ctextdark}设计原则}]
-\small\begin{itemize}\setlength\itemsep{0.3em}
+\footnotesize\begin{itemize}\setlength\itemsep{0.16em}
   \item \textbf{LLM} 负责 propose
   \item \textbf{确定性工具} 负责 verify
   \item \textbf{记忆} 负责 accumulate
 \end{itemize}
 \end{tcolorbox}
-\vspace{0.25cm}
+\vspace{0.12cm}
 \begin{tcolorbox}[tcgray, title={\color{Ctextdark}语料规模}]
-\small\begin{itemize}\setlength\itemsep{0.2em}
+\footnotesize\begin{itemize}\setlength\itemsep{0.12em}
   \item 40 商品 · 5 政策
   \item 205 chunks（NSCC 重建索引）
   \item 28 题 eval set（gold 标注）
@@ -325,7 +326,7 @@
 \end{tcolorbox}
 \end{columns}
 
-\vspace{0.25cm}
+\vspace{0.1cm}
 
 \begin{columns}[c]
 \column{0.22\textwidth}
