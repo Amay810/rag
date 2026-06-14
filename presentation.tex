@@ -44,8 +44,7 @@
 %% 帧标题：节标签 + 大标题 + 副标题
 \setbeamertemplate{frametitle}{%
   \vspace*{0.18cm}%
-  \hspace*{0.8cm}%
-  \begin{beamercolorbox}[wd=\dimexpr\paperwidth-1.2cm\relax,leftskip=0pt,rightskip=0pt]{frametitle}%
+  \noindent\begin{beamercolorbox}[wd=\dimexpr\paperwidth-1.2cm\relax,leftskip=0.8cm,rightskip=0.4cm]{frametitle}%
     {\fontsize{6.5}{8}\selectfont\bfseries\color{Cblue}%
       \MakeUppercase{\insertsectionhead}}\\[0.06cm]%
     {\fontsize{13}{15}\selectfont\bfseries\color{Ctextdark}\insertframetitle}%
@@ -54,7 +53,7 @@
     \fi%
   \end{beamercolorbox}%
   \vspace{0.06cm}%
-  {\color{Cblue!20}\hspace*{0.8cm}\rule{\dimexpr\paperwidth-1.2cm\relax}{0.5pt}}%
+  \noindent\makebox[\paperwidth][l]{\hspace*{0.8cm}{\color{Cblue!20}\rule{\dimexpr\paperwidth-1.2cm\relax}{0.5pt}}}%
   \vspace{0.08cm}%
 }
 
@@ -90,7 +89,7 @@
     colback=Ctakebg, colframe=Ctakebg,
     arc=0pt, boxrule=0pt,
     left=7pt, right=7pt, top=4pt, bottom=4pt,
-    width=\dimexpr\textwidth-0.15cm\relax, nobeforeafter
+    width=\linewidth, nobeforeafter
   ]%
     {\scriptsize\color{white}\textbf{Takeaway}\enspace%
      \color{white!88!Ctakebg}#1}%
