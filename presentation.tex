@@ -40,7 +40,6 @@
 \setbeamercolor{normal text}{fg=Ctextmain,bg=white}
 \setbeamercolor{background canvas}{bg=white}
 \setbeamercolor{frametitle}{fg=Ctextdark,bg=white}
-\setbeamercolor{takeawaybox}{fg=white,bg=Ctakebg}
 
 %% 帧标题：节标签 + 大标题 + 副标题
 \setbeamertemplate{frametitle}{%
@@ -85,10 +84,16 @@
 
 %% Takeaway 命令（全宽深色条）
 \newcommand{\takeaway}[1]{%
-  \par\vfill
-  \noindent\begin{beamercolorbox}[wd=\paperwidth,ht=2.8ex,dp=1.2ex,leftskip=0.8cm,rightskip=0.35cm]{takeawaybox}%
-    {\scriptsize\textbf{Takeaway}\enspace#1}%
-  \end{beamercolorbox}%
+  \vfill%
+  \begin{tcolorbox}[
+    colback=Ctakebg, colframe=Ctakebg,
+    arc=0pt, boxrule=0pt,
+    left=7pt, right=7pt, top=4pt, bottom=4pt,
+    width=\linewidth, nobeforeafter
+  ]%
+    {\scriptsize\color{white}\textbf{Takeaway}\enspace%
+     \color{white!88!Ctakebg}#1}%
+  \end{tcolorbox}%
 }
 
 %% 辅助命令
