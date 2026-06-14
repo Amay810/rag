@@ -53,7 +53,7 @@
     \fi%
   \end{beamercolorbox}%
   \vspace{0.06cm}%
-  {\color{Cblue!20}\noindent\rule{\paperwidth}{0.5pt}}%
+  {\color{Cblue!20}\hspace*{0.8cm}\rule{\dimexpr\paperwidth-1.2cm\relax}{0.5pt}}%
   \vspace{0.08cm}%
 }
 
@@ -218,9 +218,9 @@
 \bottomrule
 \end{tabularx}}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 \begin{tcolorbox}[tcblue]
-\small
+\footnotesize
 \cnum{3} 和 \cnum{4} 来自 \textbf{FailureMemory} 对历史失败案例的归纳，不是预先列出的功能项。\\
 这里想说明的是：先把问题测出来，再决定修什么。
 \end{tcolorbox}
@@ -488,11 +488,11 @@ baseline hybrid        & 0.907 & 0.981 & 0.981 & 0.981 & — \\
 \framesubtitle{不靠直觉，靠历史失败案例}
 
 \begin{tcolorbox}[tcblue]
-\small 累积 SupportCase → \mono{FailureMemory.analyze()} 批量归纳失败模式，\textbf{直接产出修复优先级}：
+\footnotesize 累积 SupportCase → \mono{FailureMemory.analyze()} 批量归纳失败模式，\textbf{直接产出修复优先级}：
 \end{tcolorbox}
 
-\vspace{0.18cm}
-{\small\renewcommand{\arraystretch}{1.2}
+\vspace{0.12cm}
+{\footnotesize\renewcommand{\arraystretch}{1.12}
 \begin{tabularx}{\textwidth}{lXX}
 \toprule
 \bfseries Pattern & \bfseries 根因诊断 & \bfseries 产出修复目标 \\
@@ -506,11 +506,11 @@ baseline hybrid        & 0.907 & 0.981 & 0.981 & 0.981 & — \\
 \multicolumn{3}{l}{\scriptsize 其余 pattern 与 KB gap 放在备注页：\mono{zero\_retrieval\_handoff}、\mono{handoff\_cluster}、\mono{retrieval\_blind\_spot}、\mono{stale\_doc}}
 \end{tabularx}}
 
-\vspace{0.2cm}
+\vspace{0.12cm}
 \begin{columns}[T]
 \column{0.49\textwidth}
 \begin{tcolorbox}[tcgray, title={\color{Ctextdark}FM 与 CM 的分工}]
-\small\begin{itemize}\setlength\itemsep{0.2em}
+\footnotesize\begin{itemize}\setlength\itemsep{0.12em}
   \item \textbf{FailureMemory}：离线批量分析，\\pattern detection，输出修复方向
   \item \textbf{CaseMemory}：在线 advisory，\\query-time 语义检索，输出先验 trace
   \item {\color{Cmuted}一个诊断，一个预防}
@@ -519,7 +519,7 @@ baseline hybrid        & 0.907 & 0.981 & 0.981 & 0.981 & — \\
 
 \column{0.48\textwidth}
 \begin{tcolorbox}[tcblue]
-\small FM 的输出是「该修哪里」；\\CM 的输出是「这题历史上有没有类似失败，给个 hint」。\\[0.2em]
+\footnotesize FM 的输出是「该修哪里」；\\CM 的输出是「这题历史上有没有类似失败，给个 hint」。\\[0.15em]
 两者互补，共同构成飞轮的学习闭环。
 \end{tcolorbox}
 \end{columns}
@@ -589,9 +589,9 @@ memory\_prior          & — & — & — & — & advisory trace，非检索项 \
 \bottomrule
 \end{tabularx}}
 
-\vspace{0.2cm}
+\vspace{0.12cm}
 \begin{tcolorbox}[tcblue]
-\small
+\footnotesize
 price filter 修复的是\textbf{排名错误}（P009 错误占据第一）；  
 compound decomposition 修复的是\textbf{候选覆盖缺口}（P006 根本不在 top-5）。  
 两类不同的召回失败，对应两种定向修复，结果可以叠加，而且没有引入回退。
@@ -714,7 +714,7 @@ reranker A/B → 负结果 → 定位真瓶颈 → 精准修复
 {\small\bfseries\color{Cmuted}边界声明（诚实是加分项）}\\[0.1cm]
 
 \begin{tcolorbox}[tcred]
-\small\begin{itemize}\setlength\itemsep{0.25em}
+\footnotesize\begin{itemize}\setlength\itemsep{0.12em}
   \item 本地 demo + NSCC 离线评测，非生产系统
   \item 无 LLM key 时生成层降级为 catalog 模板
   \item 语料 40 商品，测试集 28 题，corpus 规模受限
@@ -725,7 +725,7 @@ reranker A/B → 负结果 → 定位真瓶颈 → 精准修复
 
 \vspace{0.2cm}
 \begin{tcolorbox}[tcblue]
-\small
+\footnotesize
 项目最终交付的，不只是一个 demo，\\
 而是一套\textbf{可验证、可审计、支持持续迭代}的客服决策流程。
 \end{tcolorbox}
