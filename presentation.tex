@@ -111,6 +111,7 @@
     font=\scriptsize\bfseries
   ] (n) {#1};%
 }
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
 
 \setlength{\leftmargini}{1em}
 
@@ -126,7 +127,7 @@
 \begin{center}
 
 {\Large\bfseries\color{Ctextdark} 电商客服 Agentic RAG 系统}\\[0.2cm]
-{\small\color{Cmuted} NTU $\cdot$ LLM 算法 / RAG 方向}\\[0.4cm]
+
 
 \begin{tcolorbox}[tcblue, width=0.88\textwidth, center title, halign=center]
   \small
@@ -155,10 +156,18 @@
 \begin{frame}
 \frametitle{项目定位}
 
-{\small\bfseries\color{Cmuted}与普通 RAG demo 的本质区别}\\[0.08cm]
+{\small\bfseries\color{Cmuted}与普通 RAG demo 的本质区别}\\[0.06cm]
 \begin{tcolorbox}[enhanced, boxrule=0pt, colback=white, colframe=white, left=0pt, right=0pt, top=0pt, bottom=0pt]
 {\footnotesize
-\begin{tabularx}{\textwidth}{>{\bfseries}p{0.12\textwidth} >{\raggedright\arraybackslash}p{0.28\textwidth} >{\raggedright\arraybackslash}p{0.28\textwidth} >{\raggedright\arraybackslash}X}
+
+% 第一列用 c 收缩宽度并自动居中
+% 后面三列全部用 X，让它们自动平分剩余的总宽度，并保持垂直居中(m)和左对齐
+\begin{tabularx}{\textwidth}{
+    >{\bfseries}c 
+    >{\raggedright\arraybackslash}X 
+    >{\raggedright\arraybackslash}X 
+    >{\raggedright\arraybackslash}X
+}
 \toprule
 & {\color{Cmuted}普通 RAG demo} & {\color{Cmuted}传统规则客服} & {\bfseries\color{Cblue}本系统} \\
 \midrule
@@ -295,7 +304,7 @@
 
 {\small\bfseries\color{Cmuted}为什么 dense alone 不够}\\[0.08cm]
 \begin{columns}[T]
-\column{0.31\textwidth}
+\column{0.33\textwidth}
 \begin{tcolorbox}[tcblue, title={\color{Cblue}Dense（语义）}]
 \small\begin{itemize}\setlength\itemsep{0.25em}
   \item paraphrase-multilingual-\\MiniLM-L12-v2
@@ -305,7 +314,7 @@
 \end{itemize}
 \end{tcolorbox}
 
-\column{0.31\textwidth}
+\column{0.35\textwidth}
 \begin{tcolorbox}[tcamber, title={\color{orange!80!black}BM25（词法）}]
 \small\begin{itemize}\setlength\itemsep{0.25em}
   \item jieba 分词
@@ -326,7 +335,7 @@
 \end{tcolorbox}
 \end{columns}
 
-\vspace{0.1cm}
+%\vspace{0.1cm}
 
 \begin{columns}[c]
 \column{0.22\textwidth}
@@ -357,7 +366,7 @@
 
 {\small\bfseries\color{Cmuted}三层可信度闸门}\\[0.08cm]
 \begin{columns}[T]
-\column{0.32\textwidth}
+\column{0.33\textwidth}
 \begin{tcolorbox}[tcblue, title={\cnum{1} 句级 Grounding}]
 \small
 \mono{encode(回答句)} $\leftrightarrow$ \mono{encode(context)}\\[0.2em]
@@ -382,14 +391,14 @@ regex 检测价格 / 规格数字\\[0.2em]
 \end{tcolorbox}
 \end{columns}
 
-\vspace{0.25cm}
+%\vspace{0.25cm}
 \begin{tcolorbox}[tcgray]
 \centering\small
 三层 → \mono{final\_decision(grounding,\,consistency,\,citation)}
 → \hi{ok} \,/\, {\bfseries\color{orange}caution} \,/\, \bad{handoff}
 \end{tcolorbox}
 
-\vspace{0.15cm}
+%\vspace{0.15cm}
 \begin{tcolorbox}[tcblue]
 \small\textbf{无 LLM key 时}：grounding 和引用检查仍可运行（确定性计算），系统不依赖 LLM 自评。
 \end{tcolorbox}
@@ -406,7 +415,7 @@ regex 检测价格 / 规格数字\\[0.2em]
 \begin{columns}[T]
 \column{0.50\textwidth}
 \begin{tcolorbox}[tcgray, title={\color{Ctextdark}评测集设计}]
-\small\begin{itemize}\setlength\itemsep{0.3em}
+\small\begin{itemize}\setlength\itemsep{0.1em}
   \item \textbf{28 题} gold 标注：\\
     \mono{expected\_intent} / \mono{expected\_action}\\
     / \mono{gold\_doc\_ids}
@@ -414,17 +423,17 @@ regex 检测价格 / 规格数字\\[0.2em]
   \item 指标为 query \textbf{macro-average}；\\所有 28 题均有 gold，全部参与计算
 \end{itemize}
 \end{tcolorbox}
-\vspace{0.2cm}
+%\vspace{0.2cm}
 \begin{tcolorbox}[tcgray, title={\color{Ctextdark}执行环境}]
-\small\begin{itemize}\setlength\itemsep{0.2em}
+\small\begin{itemize}\setlength\itemsep{0.1em}
   \item NSCC PBS CPU 节点，\mono{HF\_HUB\_OFFLINE=1}
   \item env flag 控制条件，5 条件共用单 retriever
 \end{itemize}
 \end{tcolorbox}
 
-\column{0.46\textwidth}
+\column{0.50\textwidth}
 \begin{tcolorbox}[tcgreen, title={\color{Cgreen}Baseline 结果}]
-\vspace{0.1cm}\centering
+%\vspace{0.1cm}\centering
 \begin{tabular}{cccc}
 {\large\bfseries\color{Cgreen}0.907} &
 {\large\bfseries\color{Cgreen}0.981} &
@@ -433,12 +442,12 @@ regex 检测价格 / 规格数字\\[0.2em]
 {\tiny R@1} & {\tiny R@3} & {\tiny R@5} & {\tiny MRR}
 \end{tabular}
 \end{tcolorbox}
-\vspace{0.2cm}
+%\vspace{0.2cm}
 \begin{tcolorbox}[tcblue]
 \small\textbf{为什么用 Recall@k 而非 RAGAS？}\\[0.2em]
 gold-doc 召回是一阶问题；生成质量需要 LLM key，可以加，但先把检索搞对是前提。
 \end{tcolorbox}
-\vspace{0.15cm}
+%\vspace{0.15cm}
 \begin{tcolorbox}[tcgray]
 \small\textbf{recall@1=0.907 怎么算？}\\
 28 题，每题看 retrieved\_doc\_ids[0] 是否在 gold\_doc\_ids 里，命中数/28，macro-average。
@@ -492,9 +501,10 @@ baseline hybrid        & 0.907 & 0.981 & 0.981 & 0.981 & — \\
 \footnotesize 累积 SupportCase → \mono{FailureMemory.analyze()} 批量归纳失败模式，\textbf{直接产出修复优先级}：
 \end{tcolorbox}
 
-\vspace{0.12cm}
-{\footnotesize\renewcommand{\arraystretch}{1.12}
-\begin{tabularx}{\textwidth}{lXX}
+%\vspace{0.12cm}
+{\footnotesize\renewcommand{\arraystretch}{0.8}
+
+\begin{tabularx}{\textwidth}{l >{\hsize=1.1\hsize}X >{\hsize=0.9\hsize}X}
 \toprule
 \bfseries Pattern & \bfseries 根因诊断 & \bfseries 产出修复目标 \\
 \midrule
@@ -504,21 +514,21 @@ baseline hybrid        & 0.907 & 0.981 & 0.981 & 0.981 & — \\
 \rowcolor{Cgraylt}
 \mono{stale\_data\_caution}        & KB 文档 \mono{updated\_at} 超期 & \hi{freshness guardrail} \\
 \bottomrule
-\multicolumn{3}{l}{\scriptsize 其余 pattern 与 KB gap 放在备注页：\mono{zero\_retrieval\_handoff}、\mono{handoff\_cluster}、\mono{retrieval\_blind\_spot}、\mono{stale\_doc}}
+\multicolumn{3}{p{\textwidth}}{\scriptsize 其余 pattern 与 KB gap 放在备注页：\mono{zero\_retrieval\_handoff}、\mono{handoff\_cluster}、\mono{retrieval\_blind\_spot}、\mono{stale\_doc}}
 \end{tabularx}}
 
-\vspace{0.12cm}
+%\vspace{0.12cm}
 \begin{columns}[T]
-\column{0.49\textwidth}
+\column{0.55\textwidth}
 \begin{tcolorbox}[tcgray, title={\color{Ctextdark}FM 与 CM 的分工}]
 \footnotesize\begin{itemize}\setlength\itemsep{0.12em}
-  \item \textbf{FailureMemory}：离线批量分析，\\pattern detection，输出修复方向
-  \item \textbf{CaseMemory}：在线 advisory，\\query-time 语义检索，输出先验 trace
+  \item \textbf{FailureMemory}：离线批量分析，pattern detection，输出修复方向
+  \item \textbf{CaseMemory}：在线 advisory，query-time 语义检索，输出先验 trace
   \item {\color{Cmuted}一个诊断，一个预防}
 \end{itemize}
 \end{tcolorbox}
 
-\column{0.48\textwidth}
+\column{0.4\textwidth}
 \begin{tcolorbox}[tcblue]
 \footnotesize FM 的输出是「该修哪里」；\\CM 的输出是「这题历史上有没有类似失败，给个 hint」。\\[0.15em]
 两者互补，共同构成飞轮的学习闭环。
@@ -652,32 +662,32 @@ suggested=apply\_price\_filter
 
 {\small\bfseries\color{Cmuted}可信比「答得像」更重要}\\[0.08cm]
 \begin{columns}[T]
-\column{0.50\textwidth}
+\column{0.65\textwidth}
 \begin{tcolorbox}[tcgray, title={\color{Ctextdark}机制}]
-\small\begin{itemize}\setlength\itemsep{0.3em}
+\small\begin{itemize}\setlength\itemsep{0.1em}
   \item answer 中的价格/库存/政策 → 追溯\\chunk 的 \mono{updated\_at}
   \item 与 \mono{FRESHNESS\_MAX\_AGE\_DAYS=30} 对比
   \item 状态：\hi{fresh} / {\bfseries\color{orange}unverified} / \bad{stale}
   \item stale/unverified → 降级 ok → {\bfseries\color{orange}caution}，追加 advisory note
 \end{itemize}
 \end{tcolorbox}
-\vspace{0.2cm}
+%\vspace{0.2cm}
 \begin{tcolorbox}[tcgray, title={\color{Ctextdark}演示}]
-\small\begin{itemize}\setlength\itemsep{0.2em}
+\small\begin{itemize}\setlength\itemsep{0.1em}
   \item P005（\mono{updated\_at=2026-01-01}，故意留旧）→ \bad{stale caution}
   \item P006（\mono{2026-06-10}）→ \hi{fresh，正常通过}
 \end{itemize}
 \end{tcolorbox}
 
-\column{0.46\textwidth}
+\column{0.37\textwidth}
 \begin{tcolorbox}[tcgreen, title={\color{Cgreen}Ablation 验证}]
 \small
 +freshness\_guard 检索指标不变\\
 （guardrail 在生成层，不影响召回）
 \end{tcolorbox}
-\vspace{0.2cm}
+%\vspace{0.2cm}
 \begin{tcolorbox}[tcblue]
-\small\textbf{关键说明}：freshness 的成功标准，不是 recall 提升，而是\textbf{避免过期价格或库存被当作确定事实输出}。\\[0.3em]
+\small\textbf{关键说明}：freshness 的成功标准，不是 recall 提升，而是\textbf{避免过期价格或库存被当作确定事实输出}。\\[0.1em]
 所以即使检索指标不变，这个 feature 仍然有价值，因为它管的是输出风险，不是召回能力。
 \end{tcolorbox}
 \end{columns}
@@ -691,7 +701,7 @@ suggested=apply\_price\_filter
 \frametitle{总结 + 边界声明}
 
 \begin{columns}[T]
-\column{0.50\textwidth}
+\column{0.6\textwidth}
 {\small\bfseries\color{Cmuted}证明了三件事}\\[0.1cm]
 
 \begin{tcolorbox}[tcblue, title={\cnum{1} 会做检索工程}]
@@ -699,13 +709,13 @@ suggested=apply\_price\_filter
 hybrid(dense+BM25+RRF) + 父子文档 + 复合分解\\
 recall@1：\textbf{0.907 → 0.944}
 \end{tcolorbox}
-\vspace{0.1cm}
+%\vspace{0.1cm}
 \begin{tcolorbox}[tcgreen, title={\cnum{2} 会做科学评测}]
 \small
 gold 标注 + recall@k/MRR + ablation table\\
 每一步改动有数字支撑
 \end{tcolorbox}
-\vspace{0.1cm}
+%\vspace{0.1cm}
 \begin{tcolorbox}[tcamber, title={\cnum{3} 会做「不加某模块」的判断}]
 \small
 reranker A/B → 负结果 → 定位真瓶颈 → 精准修复
